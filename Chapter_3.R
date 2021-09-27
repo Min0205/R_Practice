@@ -129,3 +129,16 @@ dfr[dfr$b > 2,"b"]
 ##drop them when we use 'which'
 dfr[which(dfr$b > 4),"b"]
 dfr[which(dfr$b > 2),"b"]
+
+##Working with text
+sentence <- "Not a very long sentence."
+nchar(sentence)
+substr(sentence, 1, 3)
+substr(c("good","good riddance","good on ya"),1,4)
+nchar(c("hey","hi","how","ya","doin"))
+txt <- c("apple","pear","banana")
+paste(txt, "-fruit")
+paste(txt, collapse="-")
+paste("Question", 1:3)
+pupae$T_CO2 <- with(pupae, paste(T_treatment, CO2_treatment, sep="-"))
+head(pupae$T_CO2)
