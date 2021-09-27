@@ -142,3 +142,5 @@ paste(txt, collapse="-")
 paste("Question", 1:3)
 pupae$T_CO2 <- with(pupae, paste(T_treatment, CO2_treatment, sep="-"))
 head(pupae$T_CO2)
+
+##basic text
