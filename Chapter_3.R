@@ -78,3 +78,54 @@ sum(nums)
 nums <- c(10,21,5,6,0,1,12)
 length(nums)
 length(nums[nums > 5])
+
+##working with missing values
+myvec1 <- c(11,13,5,6,NA,9)
+mean(myvec1)
+##calculate mean after removing the missing values
+mean(myvec1, na.rm=TRUE)
+##check if NA exist
+is.na(myvec1)
+## [1] FALSE FALSE FALSE FALSE TRUE FALSE
+##check which of the elements of a vector is missing
+which(is.na(myvec1))
+##calculate numbers of NA values in a vector
+sum(is.na(myvec1))
+##make NA values
+datavec <- c(2,-9999,100,3,-9999,5)
+##assign NA to the values that were -9999
+datavec[datavec == -9999] <- NA
+datavec
+# A character vector, some of these look like numbers:
+myvec <- c("101","289","12.3","abc","99")
+as.numeric(myvec)
+##The warning message NAs introduced by coercion means that missing values were produced by when
+##we tried to turn one data type (character) to another (numeric).
+log(-1)
+##NaN means not a number
+1000/0
+##case study using 'pupae'
+pupae <- read.csv("pupae.csv")
+summary(pupae)
+pupae_subs1 <- subset(pupae, !is.na(pupae$Gender))
+summary(pupae_subs1)
+pupae_subs2 <- subset(pupae, !is.na(Frass) & !is.na(Gender))
+summary(pupae_subs2)
+## A more rigorous subset: remove all rows from a dataset where ANY variable
+## has a missing value:
+pupae_nona <- pupae[complete.cases(pupae),]
+summary(pupae_nona)
+##subsetting when there are missing values
+dfr2 <- data.frame(a=1:4, b=9:12)
+dfr2
+dfr <- data.frame(a=1:4, b=c(4,NA,6,NA))
+dfr
+##subset drops all missing values
+subset(dfr, b > 4, select=b)
+subset(dfr, b > 2, select=b)
+##square bracket notation keeps them
+dfr[dfr$b > 4,"b"]
+dfr[dfr$b > 2,"b"]
+##drop them when we use 'which'
+dfr[which(dfr$b > 4),"b"]
+dfr[which(dfr$b > 2),"b"]
