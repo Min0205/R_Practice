@@ -25,3 +25,21 @@ table(pupae$T_treatment)
 ##assign the first level of a factor
 levels(pupae$T_treatment)[1] <- "Control"
 table(pupae$T_treatment)
+
+##'allom' part
+allom <- read.csv("Allometry.csv")
+str(allom)
+##convert 'species' to factor
+allom$species <- as.factor(allom$species)
+str(allom)
+##show the levels of the data frame
+levels(allom$species)
+##show the levels and count the number of rows in the data frame
+table(allom$species)
+##convert 'species' to factor logically
+allom$species <- factor(allom$species, levels=c("PSME","PIMO","PIPO"))
+##onvert 'species' to factor according to value
+allom$treeSizeClass <- factor(ifelse(allom$diameter < 10, "small", "large"))
+table(allom$treeSizeClass)
+allom$treeSizeClass <- cut(allom$diameter, breaks=c(0,25,50,75),labels=c("small","medium","large"))
+table(allom$treeSizeClass)
