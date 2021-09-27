@@ -43,3 +43,38 @@ allom$treeSizeClass <- factor(ifelse(allom$diameter < 10, "small", "large"))
 table(allom$treeSizeClass)
 allom$treeSizeClass <- cut(allom$diameter, breaks=c(0,25,50,75),labels=c("small","medium","large"))
 table(allom$treeSizeClass)
+
+##logical data
+10 > 5
+##equal
+101 == 100 + 1
+apple <- 2
+pear <- 3
+apple == pear
+##not equal
+apple != pear
+101 != 100 + 1
+## Logical comparisons like these also work for vectors, for example:
+nums <- c(10,21,5,6,0,1,12)
+nums > 5
+## Find which of the numbers are larger than 5:
+which(nums > 5)
+any(nums > 25)
+any(nums > 20)
+# Are all numbers less than or equal to 10?
+all(nums <= 10)
+all(nums <= 25)
+pupae_bigpupal <- subset(pupae, PupalWeight > 0.4)
+str(pupae_bigpupal)
+##use & for AND to take subsets where two conditions are met
+subset(pupae, PupalWeight > 0.4 & Frass > 3)
+## use | for OR
+nums[nums < 2 | nums > 20]
+## How many numbers are larger than 5?
+##- Short solution
+sum(nums > 5)
+sum(nums)
+##- Long solution
+nums <- c(10,21,5,6,0,1,12)
+length(nums)
+length(nums[nums > 5])
