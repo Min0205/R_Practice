@@ -270,3 +270,50 @@ seq(from=as.Date("2011-12-13"), length=5, by="months")
 fromtime <- ymd_hms("2012-6-1 0:00:00")
 halfhours <- seq(from=fromtime, length=3, by="2 weeks")
 halfhours
+
+##structure of different data type
+##numeric
+y <- c(1,100,10)
+str(y)
+##character
+x <- "sometext"
+str(x)
+##factor
+p <- factor(c("apple","banana"))
+str(p)
+##logic
+z <- c(TRUE,FALSE)
+str(z)
+##date
+sometime <- as.Date("1979-9-16")
+str(sometime)
+##date and time
+library(lubridate)
+onceupon <- ymd_hm("1969-8-18 09:00")
+str(onceupon)
+##check data type
+##numeric
+is.numeric(c(10,189))
+##character
+is.character("HIE")
+##factor
+is.factor(c("20","30","40"))
+is.factor(c("20days","30days","40days"))
+myfac <- factor(c("20days","30days","40days"))
+is.factor(myfac)
+allom <- read.csv("Allometry.csv")
+allom$species <- as.factor(allom$species)
+is.factor(allom$species)
+##convert between types
+mynum <- 1001
+mychar <- c("1001","100 apples")
+myfac <- factor(c("280","400","650"))
+mylog <- c(TRUE,FALSE,FALSE,TRUE)
+mydate <- as.Date("2015-03-18")
+mydatetime <- ymd_hm("2011-8-11 16:00")
+as.character(mynum)
+as.character(myfac)
+as.numeric(mychar)
+as.numeric(as.character(myfac))
+as.Date(mydatetime)
+as.factor(mylog)
