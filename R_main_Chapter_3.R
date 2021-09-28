@@ -151,3 +151,38 @@ tail(pupae$T_CO2)
 summary(pupae$T_CO2)
 ##see data type
 str(pupae$T_CO2)
+
+##change the names of a dataframe
+hydro <- read.csv("hydro.csv")
+names(hydro) 
+head(hydro)
+names(hydro) <- c("Date","Dam_Storage") 
+names(hydro)[1] <- "Datum"
+names(hydro)
+##find out which columns have particular names
+match(c("diameter","leafarea"), names(allom))
+
+##working with c/r with complex characters
+##keep string as character type
+cereal <- read.csv("cereals.csv", stringsAsFactors=FALSE)
+##check if certain column or row is character
+is.character(cereal$Cereal.name)
+cereal <- read.csv("cereals.csv")
+cereal$Cereal.name <- as.character(cereal$Cereal.name)
+cerealnames <- cereal$Cereal.name
+##return the index of values that contain Raisin
+grep("Raisin",cerealnames)
+##return TRUE or FALSE
+grepl("Raisin",cerealnames)
+##return the name that contain 'a'
+cerealnames[grep("Raisin",cerealnames)]
+##"^" means start with
+grep("^Raisin",cerealnames)
+cerealnames[grep("^Raisin",cerealnames)]
+##"$" means end with
+grep("Bran$", cerealnames)
+grep("BRAN",cerealnames)
+##ignore the case-sensitivity
+grep("BRAN",cerealnames,ignore.case=TRUE)
+cereal$BranOrNot <- grepl("Bran$", cerealnames)
+summary(cereal$BranOrNot)
