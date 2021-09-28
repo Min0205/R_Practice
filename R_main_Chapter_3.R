@@ -225,3 +225,12 @@ max(hydro$Date)
 max(hydro$Date) - min(hydro$Date)
 with(hydro, plot(Date, storage, type='l'))
 
+##Date-Time combinations
+library(lubridate)
+ymd_hms("2012-9-16 13:05:00")
+time1 <- ymd_hm("2008-5-21 9:05")
+time2 <- ymd_hms("2012-9-16 13:05:00")
+time2 - time1
+dmy_hm("23-1-89 4:30")
+as.Date(time1)
+now() + hours(3) + minutes(15)
