@@ -186,3 +186,17 @@ grep("BRAN",cerealnames)
 grep("BRAN",cerealnames,ignore.case=TRUE)
 cereal$BranOrNot <- grepl("Bran$", cerealnames)
 summary(cereal$BranOrNot)
+
+##Working with dates and times
+##reading date
+as.Date("2008-5-22")
+as.Date("22-5-2008")
+library(lubridate)
+as.Date("2011-5-12") + 7
+as.Date("2009-7-1") - as.Date("2008-12-1")
+difftime(as.Date("2009-7-1"), as.Date("2008-12-1"), units = "weeks")
+as.Date("2013-8-18") + years(10) + months(1)
+##time Qitian Wen and Min Zhao fall in love with each other
+difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "hours")
+difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "days")
+difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "weeks")
