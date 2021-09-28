@@ -393,3 +393,7 @@ nchar(lyric)
 newvec <- substr(lyric, 1,1)
 sort(newvec)
 lyric == newvec
+##exercise for DNA Aerobics
+numbers <- c("A","T","G","C")
+paste(sample(numbers, size=100, replace=TRUE), 
+      collapse = "-")
