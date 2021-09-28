@@ -189,14 +189,39 @@ summary(cereal$BranOrNot)
 
 ##Working with dates and times
 ##reading date
+library(lubridate)
 as.Date("2008-5-22")
 as.Date("22-5-2008")
-library(lubridate)
+as.Date(dmy("22-5-2008"))
+as.Date(dmy("31/12/1991"))
+as.Date(dmy("31-12-1991"))
+as.Date(mdy("4-17-92"))
+as.Date(ymd("1976-5-22"))
+as.Date("2011 121", format="%Y %j")
+as.Date(ISOdate(2008,12,2))
+
+##calculation
 as.Date("2011-5-12") + 7
 as.Date("2009-7-1") - as.Date("2008-12-1")
+as.Date("2011-3-1") - as.Date("2011-2-27")
+as.Date("2012-3-1") - as.Date("2012-2-27")
 difftime(as.Date("2009-7-1"), as.Date("2008-12-1"), units = "weeks")
 as.Date("2013-8-18") + years(10) + months(1)
 ##time Qitian Wen and Min Zhao fall in love with each other
 difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "hours")
 difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "days")
 difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "weeks")
+today() - as.Date("1996-2-5")
+##use dates in a dataframe
+hydro <- read.csv("Hydro.csv")
+head(hydro)
+hydro$Date <- as.Date(dmy(hydro$Date))
+head(hydro$Date)
+any(is.na(hydro$Date))
+myvec1 <- c(11,13,5,6,NA,9)
+any(is.na(myvec1))
+min(hydro$Date)
+max(hydro$Date)
+max(hydro$Date) - min(hydro$Date)
+with(hydro, plot(Date, storage, type='l'))
+
