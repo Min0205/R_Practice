@@ -341,4 +341,27 @@ ti_3rd <- subset(ti, PClass == "3rd")
 table(ti$PClass)
 sum(is.na(ti_1st)) / 322
 sum(is.na(ti_2nd)) / 280
-sum(is.na(ti_2nd)) / 711
+sum(is.na(ti_3rd)) / 711
+##HFE tree measurements
+HFE <- read.csv("HFEIFplotmeans.csv")
+install.packages("Hmisc")
+library(Hmisc)
+describe(HFE)
+summary(HFE)
+str(HFE)
+sum(is.na(HFE$diameter))
+sum(is.na(HFE$height))
+HFE$treat <- as.factor(HFE$treat)
+levels(HFE$treat)
+nlevels(HFE$treat)
+levels(HFE$treat) <- c("control", "fertilized","irrigated","fertilized*irrigated")
+str(HFE)
+table(HFE$treat)
+HFE_subs <- subset(HFE, !is.na(height))
+str(HFE_subs)
+table(HFE_subs$treat)
+HFE$select_height <- factor(ifelse(HFE$height > 0 , "1", "0"))
+str(HFE)
+subset1 <- subset(HFE, select_height == "1")
+subset1
+table(subset1$Date)
