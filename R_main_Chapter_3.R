@@ -208,11 +208,11 @@ as.Date("2012-3-1") - as.Date("2012-2-27")
 difftime(as.Date("2009-7-1"), as.Date("2008-12-1"), units = "weeks")
 as.Date("2013-8-18") + years(10) + months(1)
 ##time Qitian Wen and Min Zhao fall in love with each other
-difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "hours")
-difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "days")
-difftime(as.Date("2021-9-28"), as.Date("2021-3-28"), units = "weeks")
+difftime(today(), as.Date("2021-3-28"), units = "hours")
+difftime(today(), as.Date("2021-3-28"), units = "days")
+difftime(today(), as.Date("2021-3-28"), units = "weeks")
 today() - as.Date("1996-2-5")
-##use dates in a dataframe
+##case study-use dates in a dataframe
 hydro <- read.csv("Hydro.csv")
 head(hydro)
 hydro$Date <- as.Date(dmy(hydro$Date))
@@ -234,3 +234,31 @@ time2 - time1
 dmy_hm("23-1-89 4:30")
 as.Date(time1)
 now() + hours(3) + minutes(15)
+##case study-date-times in a dataframe
+hfemet <- read.csv("HFEmet2008.csv")
+tail(hfemet$DateTime)
+##set DateTime as standard date and time
+hfemet$DateTime <- mdy_hm(hfemet$DateTime)
+tail(hfemet$DateTime)
+##extract date only
+hfemet$Date <- as.Date(hfemet$DateTime)
+tail(hfemet$Date)
+any(is.na(hfemet$DateTime))
+##add day of year
+hfemet$DOY <- yday(hfemet$DateTime)
+head(hfemet$DOY)
+tail(hfemet$DOY)
+##add hour of day
+hfemet$hour <- hour(hfemet$DateTime)
+head(hfemet$hour)
+tail(hfemet$hour)
+##add minute of hour
+hfemet$minute <- minute(hfemet$DateTime)
+head(hfemet$minute)
+tail(hfemet$minute)
+table(hfemet$minute)
+##add month of year
+hfemet$month <- month(hfemet$DateTime)
+head(hfemet$month)
+tail(hfemet$month)
+with(subset(hfemet, month==6), plot(DateTime, Tair, type='l'))
