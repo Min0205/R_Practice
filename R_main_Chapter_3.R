@@ -386,3 +386,10 @@ str(flux$Rain)
 flux$Rain[flux$Rain == "#DIV/0!"] <- NA
 table(flux$Rain) 
 summary(flux$Rain)
+##exercise for Alphabet Aerobics 3
+lyric <- readLines("alphabet.txt")
+lyric
+nchar(lyric)
+newvec <- substr(lyric, 1,1)
+sort(newvec)
+lyric == newvec
