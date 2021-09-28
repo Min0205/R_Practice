@@ -41,6 +41,7 @@ allom$species <- factor(allom$species, levels=c("PSME","PIMO","PIPO"))
 ##onvert 'species' to factor according to value
 allom$treeSizeClass <- factor(ifelse(allom$diameter < 10, "small", "large"))
 table(allom$treeSizeClass)
+str(allom)
 allom$treeSizeClass <- cut(allom$diameter, breaks=c(0,25,50,75),labels=c("small","medium","large"))
 table(allom$treeSizeClass)
 
@@ -316,4 +317,28 @@ as.character(myfac)
 as.numeric(mychar)
 as.numeric(as.character(myfac))
 as.Date(mydatetime)
-as.factor(mylog)
+as.myvecfactor(mylog)
+
+##exercises
+##Titanic
+ti <- read.table("titanic.txt", header=TRUE)
+str(ti)
+ti$Name <- as.character(ti$Name)
+summary(ti$Age)
+sum(is.na(ti$Age))
+ti$Status <- factor(ifelse(ti$Survived > 0 , "survive", "dead"))
+str(ti)
+ti$PClass <- as.factor(ti$PClass)
+levels(ti$PClass)
+table(ti$PClass)
+str(ti)
+grep("Fortune", ti$Name)
+ti$Name[grep("Fortune",ti$Name)]
+ti[100:105, ]
+ti_1st <- subset(ti, PClass == "1st")
+ti_2nd <- subset(ti, PClass == "2nd")
+ti_3rd <- subset(ti, PClass == "3rd")
+table(ti$PClass)
+sum(is.na(ti_1st)) / 322
+sum(is.na(ti_2nd)) / 280
+sum(is.na(ti_2nd)) / 711
