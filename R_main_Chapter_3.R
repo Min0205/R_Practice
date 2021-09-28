@@ -262,3 +262,11 @@ hfemet$month <- month(hfemet$DateTime)
 head(hfemet$month)
 tail(hfemet$month)
 with(subset(hfemet, month==6), plot(DateTime, Tair, type='l'))
+
+##sequences of dates and times
+seq(from=as.Date("2011-1-1"), length=10, by="2 weeks")
+seq(from=as.Date("2011-1-1"), length=4, by="2 weeks")
+seq(from=as.Date("2011-12-13"), length=5, by="months")
+fromtime <- ymd_hms("2012-6-1 0:00:00")
+halfhours <- seq(from=fromtime, length=3, by="2 weeks")
+halfhours
