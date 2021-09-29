@@ -12,3 +12,10 @@ library(ggplot2)
 ggplot(cereal, aes(x=Manufacturer, y=rating)) +
   stat_summary(geom='bar', fun=mean) +
   stat_summary(geom='errorbar', fun.data=mean_se, width=0.25)
+
+##histograms and curves
+rannorm <- rnorm(500)
+par(mfrow=c(1,2))
+hist(rannorm, freq=TRUE, main="")
+hist(rannorm, freq=FALSE, main="", ylim=c(0,0.4))
+curve(dnorm(x), add=TRUE, col="blue")
