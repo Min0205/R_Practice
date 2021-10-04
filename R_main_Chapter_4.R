@@ -64,10 +64,30 @@ rownames(percentages3) <- election[c(1, 2, 3), 'Date']
 barplot(t(percentages3), beside=FALSE, col=rainbow(12), ylim=c(0,100),
         xlim=c(0, 5), legend=colnames(percentages3))
 
-##box plots
+##box plot
 cereal <- read.csv("Cereals.csv")
 str(cereal)
 boxplot(sodium ~
           Manufacturer, data=cereal, ylab="Sodium content", xlab="Manufacturer")
 boxplot(sugars ~
           Manufacturer, data=cereal, ylab="Sugar content", xlab="Manufacturer", col='orange')
+
+##scatter plot
+allom <- read.csv("allometry.csv")
+allom$species <- as.factor(allom$species)
+# Default scatter plot
+with(allom, plot(diameter, height, col=species))
+palette(c("blue","orange","forestgreen"))
+with(allom, plot(diameter, height, col=species,
+                 pch=15, xlim=c(0,80), ylim=c(0,50)))
+par(xaxs="i", yaxs="i", cex.lab=1.4)
+palette(c("blue","red","forestgreen"))
+plot(height ~
+       diameter, col=species, data=allom,
+     pch=15, xlim=c(0,80), ylim=c(0,50),
+     xlab="Diameter (cm)",
+     ylab="Height (m)")
+# Add a legend
+legend("bottomright", levels(allom$species), pch=15, col=palette(), title="Species")
+
+##fine-tuning the format of plots
