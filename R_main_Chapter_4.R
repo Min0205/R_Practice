@@ -5,33 +5,69 @@ with(dfr, plot(X,Y))
 # Option 2: formula interface (Y 'as a function of' X)
 plot(Y ~ X, data=dfr)
 ##bar plot
+##a simple bar plot
 nums <- c(2.1,3.4,3.8,3.9,2.9,5)
 barplot(nums)
+##using ggplot2 to make complex bar plot and add error bar
+rainbow(7)
+library(RColorBrewer)
+colors <- brewer.pal(n, "Set1")
 cereal <- read.csv("Cereals.csv")
+str(cereal)
 library(ggplot2)
 ggplot(cereal, aes(x=Manufacturer, y=rating)) +
   stat_summary(geom='bar', fun=mean) +
   stat_summary(geom='errorbar', fun.data=mean_se, width=0.25)
+ggplot(cereal, aes(x = Cold.or.Hot, y = rating)) +
+  stat_summary(geom = 'bar', fun = mean) +
+  stat_summary(geom = 'errorbar', fun.data = mean_se, width = 0.25)
 
 ##histograms and curves
 rannorm <- rnorm(500)
+# set up two plots side-by-side
 par(mfrow=c(1,2))
+# A frequency diagram
 hist(rannorm, freq=TRUE, main="")
+# A density plot with a normal curve
 hist(rannorm, freq=FALSE, main="", ylim=c(0,0.4))
 curve(dnorm(x), add=TRUE, col="blue")
-
+curve(sin(x), from=0, to=2*pi)
 
 ##pie chart
 election <- read.csv("dutchelection.csv")
 str(election)
-percentages <- unlist(election[6, 2:ncol(election)])
+##unlist makes this into a vector; [1 means from the first row, 
+##2:ncol(election) means from the second to the last columns in 'elevation', 
+##calculate mean of each column]
+percentages <- unlist(election[1, 2:ncol(election)])
+percentages
 par(mfrow=c(1,2))
+##'matrix' convert the diagram, Beside=FALSE makes this a stacked barplot
 barplot(matrix(percentages), beside=FALSE, col=rainbow(12), ylim=c(0,100))
 ##a pie chart
 pie(percentages, col=rainbow(12))
+##subset 'election' to contain only the first and last rows, and subset the first column
 percentages2 <- election[c(1, nrow(election)), -1]
+##convert the dataframe to matrix
 percentages2 <- as.matrix(percentages2)
+percentages2
 rownames(percentages2) <- election[c(1, nrow(election)), 'Date']
+##t() transposes the party data from columns to rows
+##xlim() creates extra space on the right of the plot for the legend
 barplot(t(percentages2), beside=FALSE, col=rainbow(12), ylim=c(0,100),
         xlim=c(0, 4), legend=colnames(percentages2))
+percentages3 <- election[c(1, 2, 3), -1]
+percentages3
+percentages3 <- as.matrix(percentages3)
+percentages3
+rownames(percentages3) <- election[c(1, 2, 3), 'Date']
+barplot(t(percentages3), beside=FALSE, col=rainbow(12), ylim=c(0,100),
+        xlim=c(0, 5), legend=colnames(percentages3))
 
+##box plots
+cereal <- read.csv("Cereals.csv")
+str(cereal)
+boxplot(sodium ~
+          Manufacturer, data=cereal, ylab="Sodium content", xlab="Manufacturer")
+boxplot(sugars ~
+          Manufacturer, data=cereal, ylab="Sugar content", xlab="Manufacturer", col='orange')
