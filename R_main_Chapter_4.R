@@ -92,7 +92,6 @@ legend("bottomright", levels(allom$species), pch=15, col=palette(), title="Speci
 
 ##fine-tuning the format of plots
 ##customizing and choosing colors
-plot(x,y, col=3)
 colors()
 palette(c("blue2","goldenrod1","firebrick2","chartreuse4",
           "deepskyblue1","darkorange1","darkorchid3","darkgrey",
@@ -100,9 +99,20 @@ palette(c("blue2","goldenrod1","firebrick2","chartreuse4",
           "goldenrod4","darkolivegreen2","palevioletred3",
           "darkseagreen3","sandybrown","tan",
           "gold","violetred4","darkgreen"))
-# A simple graph showing the colours.
+# A simple graph showing the colors.
 par(cex.axis=0.8, las=3)
 n <- length(palette())
 barplot(rep(1,n),
         col=1:n,
         names.arg=1:n,axes=FALSE)
+##gradient ramp colors
+redblue <- colorRampPalette(c("red","blue"))
+a <- palette(redblue(10))
+barplot(rep(1,10),
+        col=a,
+        names.arg=1:10,axes=FALSE)
+whiteblack <- colorRampPalette(c("white","black"))
+b <- palette(whiteblack(10))
+barplot(rep(1,10),
+        col=b,
+        names.arg=1:10,axes=FALSE)
