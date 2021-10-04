@@ -116,3 +116,25 @@ b <- palette(whiteblack(10))
 barplot(rep(1,10),
         col=b,
         names.arg=1:10,axes=FALSE)
+
+##set gradient ramp colors for scatterplot in two ways
+##discrete value
+hfemet <- read.csv("hfemet2008.csv")
+str(hfemet)
+##make a factor variable with 10 levels of rh.
+hfemet$RHbin <- cut(hfemet$RH, breaks=10)
+levels(hfemet$RHbin)
+##set colors correspondingly, from red to blue.
+blueredfun <- colorRampPalette(c("red","blue"))
+palette(blueredfun(10))
+##plot VPD and Tair, with the color of the symbol varying by rh.
+par(cex.lab=1.3)
+with(hfemet, plot(Tair, VPD, pch=19, cex=0.5, col=RHbin))
+##add a legend
+legend("topleft", levels(hfemet$RHbin), fill=palette(), title="RH")
+##continuous value
+library(ggplot2)
+ggplot(hfemet, aes(x=Tair, y=VPD, col=RH)) +
+##add the scatterplot layer
+  geom_point() + 
+  scale_colour_gradient(low='red', high='blue')
