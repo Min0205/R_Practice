@@ -19,3 +19,19 @@ par(mfrow=c(1,2))
 hist(rannorm, freq=TRUE, main="")
 hist(rannorm, freq=FALSE, main="", ylim=c(0,0.4))
 curve(dnorm(x), add=TRUE, col="blue")
+
+
+##pie chart
+election <- read.csv("dutchelection.csv")
+str(election)
+percentages <- unlist(election[6, 2:ncol(election)])
+par(mfrow=c(1,2))
+barplot(matrix(percentages), beside=FALSE, col=rainbow(12), ylim=c(0,100))
+##a pie chart
+pie(percentages, col=rainbow(12))
+percentages2 <- election[c(1, nrow(election)), -1]
+percentages2 <- as.matrix(percentages2)
+rownames(percentages2) <- election[c(1, nrow(election)), 'Date']
+barplot(t(percentages2), beside=FALSE, col=rainbow(12), ylim=c(0,100),
+        xlim=c(0, 4), legend=colnames(percentages2))
+
