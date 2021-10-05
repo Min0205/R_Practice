@@ -139,6 +139,15 @@ ggplot(hfemet, aes(x=Tair, y=VPD, col=RH)) +
   geom_point() + 
   scale_colour_gradient(low='red', high='blue')
 
+##set semi-transparent colors
+##load the package for the function 'alpha'
+library(scales)
+x <- rnorm(1000)
+y1 <- x + rnorm(1000, sd=0.5)
+y2 <- -x + rnorm(1000, sd=0.6)
+plot(x,y1,pch=19,col=alpha("blue",0.3))
+points(x,y2, pch=19, col=alpha("red",0.3))
+
 ##customizing symbols and lines
 X <- 1:5
 Y <- c(4,5.5,6.1,5.2,3.1)
