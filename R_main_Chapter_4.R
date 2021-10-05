@@ -155,7 +155,22 @@ with(allom, plot(diameter, height, pch=2, col="red"))
 with(allom, plot(diameter, height, pch=15, col="green", bg="green"))
 ##filled circles, with a black edge, and a grey fill color
 with(allom, plot(diameter, height, pch=21, bg="grey", col="black"))
-# Custom plotting symbol (any character works)
+##custom plotting symbol (any character works)
 with(allom, plot(diameter, height, pch="W"))
 with(allom, plot(diameter, height, pch="$"))
 with(allom, plot(diameter, height, pch="@"))
+
+##set symbol types by a factor level
+palette(c("blue","red","forestgreen"))
+with(allom, plot(diameter, height,
+                 col=species,
+                 pch=c(1,2,15)[species],
+                 xlim=c(0,80), ylim=c(0,50)))
+grey <- colorRampPalette(c("grey","darkgrey"))
+palette(grey(3))
+par(xaxs="i", yaxs="i", cex.lab=1.4)
+with(allom, plot(diameter, height,
+                 col=species,
+                 pch=c(1,2,15)[species],
+                 xlim=c(0,80), ylim=c(0,50)))
+legend("bottomright", levels(allom$species), pch=c(1,2,15), col=palette(), title="Species")
