@@ -138,3 +138,24 @@ ggplot(hfemet, aes(x=Tair, y=VPD, col=RH)) +
 ##add the scatterplot layer
   geom_point() + 
   scale_colour_gradient(low='red', high='blue')
+
+##customizing symbols and lines
+X <- 1:5
+Y <- c(4,5.5,6.1,5.2,3.1)
+plot(X,Y, type='p', main="type='p'")
+plot(X,Y, type='o', main="type='o'")
+plot(X,Y, type='b', main="type='b'")
+plot(X,Y, type='l', main="type='l'")
+plot(X,Y, type='h', main="type='h'")
+plot(X,Y, type='s', main="type='s'")
+par(mfrow=c(2,2))
+##open triangles
+with(allom, plot(diameter, height, pch=2, col="red"))
+##red solid squares
+with(allom, plot(diameter, height, pch=15, col="green", bg="green"))
+##filled circles, with a black edge, and a grey fill color
+with(allom, plot(diameter, height, pch=21, bg="grey", col="black"))
+# Custom plotting symbol (any character works)
+with(allom, plot(diameter, height, pch="W"))
+with(allom, plot(diameter, height, pch="$"))
+with(allom, plot(diameter, height, pch="@"))
