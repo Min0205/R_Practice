@@ -210,3 +210,7 @@ font_import()
 y
 fonts()
 plot(x,y, xlab="some label", family="Comic Sans MS")
+plot(x,y, main="Italic text", font=6)
+
+##change system language
+Sys.setlocale("LC_TIME", "English")
