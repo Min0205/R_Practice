@@ -231,3 +231,18 @@ points(SP ~
          Date, data=election, type='l', col="red", lty=5)
 points(GL ~
          Date, data=election, type='l', col="forestgreen")
+##add a vertical line at x=0
+abline(v=0)
+##add a horizontal line at y=50
+abline(h=50)
+##add a line with an intercept of 0 and a slope of 1
+##(known as a 1:1 line)
+abline(0,1)
+plot(x,y, abline(h=4))
+plot(x,y, abline(v=3))
+plot(x,y, abline(0,1))
+plot(x,y, abline(h=4))
+points(x,y, abline(v=3))
+points(x,y, abline(0,1))
+##add a legend
+legend("topleft", expression(bold(A)), bty='n', inset=0.02)
