@@ -214,3 +214,20 @@ plot(x,y, main="Italic text", font=6)
 
 ##change system language
 Sys.setlocale("LC_TIME", "English")
+
+##adding to a current plot
+election <- read.csv("dutchelection.csv")
+election$Date <- as.Date(election$Date)
+str(election)
+##plot the first variable (make sure to set the Y axis range
+##wide enough for all the other data!)
+plot(VVD ~
+       Date, data=election, type='l', col="blue", ylim=c(0,40),
+     ylab="Poll result (%)", lty=1)
+##add the rest of the results, one at a time using points
+points(PvdA ~
+         Date, data=election, type='l', col="red")
+points(SP ~
+         Date, data=election, type='l', col="red", lty=5)
+points(GL ~
+         Date, data=election, type='l', col="forestgreen")
