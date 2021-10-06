@@ -183,3 +183,20 @@ with(allom, plot(diameter, height,
                  pch=c(1,2,15)[species],
                  xlim=c(0,80), ylim=c(0,50)))
 legend("bottomright", levels(allom$species), pch=c(1,2,15), col=palette(), title="Species")
+
+##formatting units, equations and special symbols
+?plotmath
+?expression
+expression(Infected~area~(cm^2))
+expression(Photosynthesis~ ~(mu*mol~m^-2~s^-1))
+expression(Temperature~ ~(degree*C))
+par(mar=c(5,5,2,2))
+x <- 1:5
+y <- c(4,5.5,6.1,5.2,3.1)
+plot(x,y, xlab = expression(Temperature~ ~(degree*C)), ylab=expression(Photosynthesis~ ~(mu*mol~m^-2~s^-1)))
+plot(x,y, xlab = expression(5[3]), ylab=expression(Photosynthesis~ ~(mu*mol~m^-2~s^-1)))
+expression(Permille~"\u00A5")
+expression(Permille~"\u00BC")
+##reset the graphical characters
+dev.off()
+
