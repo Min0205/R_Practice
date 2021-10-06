@@ -200,3 +200,13 @@ expression(Permille~"\u00BC")
 ##reset the graphical characters
 dev.off()
 
+##changing the font
+##!!!this part has an unsolved bug!!!
+install.packages("extrafont")
+library(extrafont)
+library(remotes)
+remotes::install_version("Rttf2pt1", version = "1.3.8")
+font_import()
+y
+fonts()
+plot(x,y, xlab="some label", family="Comic Sans MS")
