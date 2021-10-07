@@ -246,3 +246,27 @@ points(x,y, abline(v=3))
 points(x,y, abline(0,1))
 ##add a legend
 legend("topleft", expression(bold(A)), bty='n', inset=0.02)
+
+##change the layout of plot
+par(mfrow=c(2,2),mar=c(4.1,4.1,0.1,0.1))
+plot(leafarea~
+       height,data=allom,col=species,xlab='', pch=15)
+plot(leafarea~
+       diameter,data=allom,col=species,xlab='',ylab='',pch=15)
+plot(branchmass~
+       height,data=allom,col=species,pch=15)
+plot(branchmass~
+       diameter,data=allom,col=species,ylab='',pch=15)
+l<-layout(matrix(c(1,1,1,2,3,4),nrow=3,ncol=2,byrow=F))
+layout.show(l)
+layout(matrix(c(1,1,1,2,3,4),nrow=3,ncol=2,byrow=F))
+plot(leafarea~
+       height,data=allom,col=species,xlab='', pch=15)
+plot(leafarea~
+       diameter,data=allom,col=species,xlab='',ylab='',pch=15)
+plot(branchmass~
+       height,data=allom,col=species,pch=15)
+plot(branchmass~
+       diameter,data=allom,col=species,ylab='',pch=15)
+p <- layout(matrix(c(1,1,1,2,3,4),nrow=3,ncol=2,byrow=F))
+layout.show(p)
