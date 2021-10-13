@@ -245,7 +245,7 @@ plot(x,y, abline(h=4))
 points(x,y, abline(v=3))
 points(x,y, abline(0,1))
 ##add a legend
-legend("topleft", expression(bold(A)), bty='n', inset=0.02)
+legend("topleft", expression(bold(A)), bty='n', inset=0.000001)
 
 ##change the layout of plot
 par(mfrow=c(2,2),mar=c(4.1,4.1,0.1,0.1))
@@ -270,3 +270,76 @@ plot(branchmass~
        diameter,data=allom,col=species,ylab='',pch=15)
 p <- layout(matrix(c(1,1,1,2,3,4),nrow=3,ncol=2,byrow=F))
 layout.show(p)
+
+##example1
+vessel <- read.csv("vessel.csv")
+str(vessel)
+vesselBase <- subset(vessel, position=="base")
+vesselApex <- subset(vessel, position=="apex")
+# Set up two figures next to each other:
+par(mfrow=c(1,2))
+# Simple histograms, default settings.
+dev.off()
+hist(vesselBase$vesseldiam)
+hist(vesselApex$vesseldiam)
+##fine tune formatting with par()
+par(mfrow=c(1,2), mar=c(5,5,4,1), cex.lab=1.3, xaxs="i", yaxs="i")
+##first panel
+hist(vesselBase$vesseldiam,
+     main="Base",
+     col="darkgrey",xlim=c(0,160), breaks=seq(0,160,by=10),
+     xlab=expression(Vessel~
+                       diameter~ ~
+                       (mu*m)),
+     ylab="Number of vessels")
+##second panel
+hist(vesselApex$vesseldiam,
+     main="Apex",
+     col="lightgrey",
+     xlim=c(0,160), breaks=seq(0,160,by=10),
+     xlab=expression(Vessel~
+                       diameter~ ~
+                       (mu*m)),
+     ylab="Number of vessels")
+dev.off()
+##example2
+# Read the hfemet data. Avoid conversion to factors.
+hfemet <- read.csv("HFEmet2008.csv", stringsAsFactors=FALSE)
+str(hfemet)
+# Convert to a proper DateTime class:
+install.packages("lubridate")
+library(lubridate)
+hfemet$DateTime <- mdy_hm(hfemet$DateTime)
+# Add the Date :
+hfemet$Date <- as.Date(hfemet$DateTime)
+str(hfemet$Date)
+str(hfemet)
+# Select one day (a cloudy day in June).
+hfemetsubs <- subset(hfemet, Date==as.Date("2008-6-1"))
+# Plot Air temperature and PAR (radiation) in one plot.
+# First we make a 'vanilla' plot with the default formatting.
+with(hfemetsubs, plot(DateTime, Tair, type='l'))
+par(new=TRUE)
+with(hfemetsubs, plot(DateTime, PAR, type='l', col="red",
+                      axes=FALSE, ann=FALSE))
+# The key here is to use par(new=TRUE), it produces the next
+# plot right on top of the old one.
+par(mar=c(5,5,2,5), cex.lab=1.2, cex.axis=0.9)
+with(hfemetsubs, plot(DateTime, Tair, type='l',
+                      ylim=c(0,20), lwd=2, col="blue",
+                      xlab="Time",
+                      ylab=expression(T[air]~ ~
+                                        (""^"o"*C))))
+par(new=TRUE)
+with(hfemetsubs, plot(DateTime, PAR, type='l', col="red",
+                      lwd=2,
+                      ylim=c(0,1000),
+                      axes=FALSE, ann=FALSE))
+axis(4)
+mtext("a",side =4,line=3)
+mtext(expression(PAR~ ~
+                   (mu*mol~
+                      m^-2~
+                      s^-1)), side=4, line=3, cex=1.2)
+legend("topleft", c(expression(T[air]),"PAR"), lwd=2, col=c("blue","red"),
+       bty='n')
