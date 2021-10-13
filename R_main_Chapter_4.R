@@ -276,9 +276,8 @@ vessel <- read.csv("vessel.csv")
 str(vessel)
 vesselBase <- subset(vessel, position=="base")
 vesselApex <- subset(vessel, position=="apex")
-# Set up two figures next to each other:
 par(mfrow=c(1,2))
-# Simple histograms, default settings.
+##simple histograms, default settings.
 dev.off()
 hist(vesselBase$vesseldiam)
 hist(vesselApex$vesseldiam)
@@ -303,27 +302,24 @@ hist(vesselApex$vesseldiam,
      ylab="Number of vessels")
 dev.off()
 ##example2
-# Read the hfemet data. Avoid conversion to factors.
+##read the hfemet data. Avoid conversion to factors.
 hfemet <- read.csv("HFEmet2008.csv", stringsAsFactors=FALSE)
 str(hfemet)
-# Convert to a proper DateTime class:
+##convert to a proper DateTime class
 install.packages("lubridate")
 library(lubridate)
 hfemet$DateTime <- mdy_hm(hfemet$DateTime)
-# Add the Date :
+##Add the Date line
 hfemet$Date <- as.Date(hfemet$DateTime)
 str(hfemet$Date)
 str(hfemet)
-# Select one day (a cloudy day in June).
 hfemetsubs <- subset(hfemet, Date==as.Date("2008-6-1"))
-# Plot Air temperature and PAR (radiation) in one plot.
-# First we make a 'vanilla' plot with the default formatting.
 with(hfemetsubs, plot(DateTime, Tair, type='l'))
+
+##use par(new=TRUE) to produces the next plot right on top of the old one
 par(new=TRUE)
 with(hfemetsubs, plot(DateTime, PAR, type='l', col="red",
                       axes=FALSE, ann=FALSE))
-# The key here is to use par(new=TRUE), it produces the next
-# plot right on top of the old one.
 par(mar=c(5,5,2,5), cex.lab=1.2, cex.axis=0.9)
 with(hfemetsubs, plot(DateTime, Tair, type='l',
                       ylim=c(0,20), lwd=2, col="blue",
@@ -426,3 +422,26 @@ mtext("a",side =4, line=num)  ##line set the distance of "a" to y-axis
 legend("topleft", expression(bold(A)), bty='n', inset=0.02)  ##bty='n' means no boundary line; inset set the position 
 legend("topleft", c("a","b"), lwd=2, col=c("col1","col2"), bty='n')
 
+##special plots
+##plot1
+cereal <- read.csv("Cereals.csv")
+str(cereal)
+# Choose colours
+# Find the order of factor levels, so that we can assign colours in the same order
+levels(cereal$Cold.or.Hot)
+cereal$Cold.or.Hot <- as.factor(cereal$Cold.or.Hot)
+levels(cereal$Cold.or.Hot)
+# We choose blue for cold, red for hot
+palette(c("blue","red"))
+# Make the plot
+with(cereal, symbols(fiber, potass, circles=fat, inches=0.2, bg=Cold.or.Hot,
+                     xlab="Fiber content", ylab="Potassium content"))
+with(cereal, symbols(fiber, potass, circles=fat, inches=0.2, bg=as.factor(Cold.or.Hot),
+                     xlab="Fiber content", ylab="Potassium content"))
+##??here with col= can't read color??
+with(cereal, symbols(fiber, potass, circles=fat, inches=0.2, col=Cold.or.Hot,
+                     xlab="Fiber content", ylab="Potassium content"))
+with(cereal, symbols(fiber, potass, circles=fat, inches=0.2, col=as.factor(Cold.or.Hot),
+                     xlab="Fiber content", ylab="Potassium content"))
+with(cereal, symbols(fiber, potass, circles=protein, inches=0.1, bg=as.factor(Cold.or.Hot),
+                     xlab="Fiber content", ylab="Potassium content"))
