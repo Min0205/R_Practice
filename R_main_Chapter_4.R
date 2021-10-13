@@ -445,3 +445,21 @@ with(cereal, symbols(fiber, potass, circles=fat, inches=0.2, col=as.factor(Cold.
                      xlab="Fiber content", ylab="Potassium content"))
 with(cereal, symbols(fiber, potass, circles=protein, inches=0.1, bg=as.factor(Cold.or.Hot),
                      xlab="Fiber content", ylab="Potassium content"))
+
+##plo2
+pupae <- read.csv("pupae.csv")
+pupae$CO2_treatment <- as.factor(pupae$CO2_treatment)
+##a standard plot showing means and 95% confidence limits
+install.packages("ggplot2")
+library(ggplot2)
+install.packages("Hmisc")
+library(Hmisc)
+palette(c("blue","red"))
+ggplot(pupae, aes(x=T_treatment, y=Frass, fill=CO2_treatment)) +
+  stat_summary(geom='bar', fun=mean,
+##the 'position' argument is used to offset the pars in relation to each other
+               position=position_dodge(width=0.9)) +
+##add the error bars layer, calculating the standard error for each group
+##'width' is the proportion of the width of the bar that the line should extend
+  stat_summary(geom='errorbar', fun.data=mean_cl_normal, width=0.25,
+               position=position_dodge(width=0.9))
