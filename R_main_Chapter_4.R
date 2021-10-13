@@ -343,3 +343,86 @@ mtext(expression(PAR~ ~
                       s^-1)), side=4, line=3, cex=1.2)
 legend("topleft", c(expression(T[air]),"PAR"), lwd=2, col=c("blue","red"),
        bty='n')
+
+##notes about adjusting plots
+##Two ways to plot
+##Option 1: plot of X and Y
+with(data, plot(X,Y))
+##Option 2: formula interface (Y 'as a function of' X)
+plot(Y ~ X, data=)
+
+##Fine tune formatting with par()
+##plot
+##combine multiple figures in one plot
+##mfrow=c(a,b)
+##Set plot size
+##mar=c(a,a,b,b)
+##mar=c(a,b,c,d)
+
+##axis
+##Set axis
+##axes=FALSE (no x and y axis)
+##Set font size of axis
+##cex.axis=num
+##Set limit of axis
+##xlim=c(num1, num2), breaks=seq(num1, num2, by=num)
+##ylim=c(num1, num2)
+
+##axis label
+##Set axis label
+##xlab = "text"
+##xlab = expression()
+##xlab = ''   ## (null)
+##ann = FALSE (no x and y lab)
+##set font size of axis label
+##cex.lab=num
+
+##Set line
+##width
+##lwd=num
+##Color
+##col=""
+
+##Format units, equations and special symbols
+##?plotmath
+##examples:
+expression(Photosynthesis~ ~(mu*mol~m^-2~s^-1))
+expression(Temperature~ ~(degree*C))
+expression(T[air]~ ~ (""^"o"*C))
+##^represent superscript, []represent subscript
+##Network of special characters: https://en.wikipedia.org/wiki/Unicode_symbols
+expression(Permille~"\u00A5")
+
+##Adding to a current plot
+##method 1
+election <- read.csv("dutchelection.csv")
+election$Date <- as.Date(election$Date)
+##plot the first variable (make sure to set the Y axis range wide enough for all the other data!)
+plot(VVD ~ Date, data=election, type='l', col="blue", ylim=c(0,40), ylab="Poll result (%)")
+##add the rest of the results, one at a time using points
+points(PvdA ~  Date, data=election, type='l', col="red")
+points(SP ~   Date, data=election, type='l', col="red", lty=5)
+points(GL ~  Date, data=election, type='l', col="forestgreen")
+##method 2
+plot1
+par(new=TRUE)
+plot2
+
+##Add a line
+##add a vertical line at x=0
+abline(v=0)
+##add a horizontal line at y=50
+abline(h=50)
+##add a line with an intercept of 0 and a slope of 1
+##(known as a 1:1 line)
+abline(0,1)
+
+##Add right y-axis
+axis(4)
+##add right y-axis label
+mtext("a",side =4, line=num)  ##line set the distance of "a" to y-axis
+
+##Add a legend
+legend("topleft", expression(bold(A)), bty='n', inset=0.02)  ##bty='n' means no boundary line; inset set the position 
+legend("topleft", c("a","b"), lwd=2, col=c("col1","col2"), bty='n')
+
