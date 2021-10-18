@@ -463,3 +463,47 @@ ggplot(pupae, aes(x=T_treatment, y=Frass, fill=CO2_treatment)) +
 ##'width' is the proportion of the width of the bar that the line should extend
   stat_summary(geom='errorbar', fun.data=mean_cl_normal, width=0.25,
                position=position_dodge(width=0.9))
+
+##plot3
+##log-log axes
+allom <- read.csv("allometry.csv")
+head(allom)
+# Magic axis package
+install.packages("magicaxis")
+library(magicaxis)
+par(cex.lab=1.2)
+##log-log plot of branch mass versus diameter; 
+##set axes=FALSE to suppress the axes
+with(allom, plot(log10(diameter), log10(branchmass),
+                 xlim=log10(c(1,100)),
+                 ylim=log10(c(1,1100)),
+                 pch=21, bg="lightgrey",
+                 xlab="Diameter (cm)", ylab="Branch mass (kg)",
+                 axes=FALSE))
+with(allom, plot(log10(diameter), log10(branchmass),
+                 pch=21, bg="lightgrey",
+                 xlab="Diameter (cm)", ylab="Branch mass (kg)",
+                 ))
+with(allom, plot(log10(diameter), log10(branchmass),
+                 xlim=log10(c(1,100)),
+                 ylim=log10(c(1,1100)),
+                 pch=21, bg="lightgrey",
+                 xlab="Diameter (cm)", ylab="Branch mass (kg)",
+                 ))
+with(allom, plot(diameter, branchmass,
+                 pch=21, bg="lightgrey",
+                 xlab="Diameter (cm)", ylab="Branch mass (kg)",
+                 ))
+##add axes: unlog='xy' will make sure the labels are shown in the original scale,
+##and we want axes on sides 1 (X) and 2 (Y)
+magaxis(unlog='xy', side=c(1,2))
+##add a regression line,but only to cover the range of the data.
+library(plotrix)
+ablineclip(lm(log10(branchmass) ~
+                log10(diameter), data=allom),
+           x1=min(log10(allom$diameter)),
+           x2=max(log10(allom$diameter)))
+ablineclip(lm(log10(branchmass) ~
+                log10(diameter), data=allom))
+##add a box
+box()
