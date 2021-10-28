@@ -507,3 +507,50 @@ ablineclip(lm(log10(branchmass) ~
                 log10(diameter), data=allom))
 ##add a box
 box()
+
+##plotting with ggplot2
+library(ggplot2)
+##default scatter plot
+##first set up what data are to be plotted
+ggplot(allom, aes(x=diameter, y=height, col=species)) +
+##then indicate what type of plot should be used
+  geom_point()
+
+##change plotting symbols
+ggplot(allom, aes(x=diameter, y=height, col=species, shape=species)) +
+  geom_point()
+
+ggplot(allom, aes(x=diameter, y=height, col=species, shape=species)) +
+  geom_point() +
+##set the minimum and maximum values for each axis
+  xlim(0, 80) + ylim(0, 50) +
+##state the colours to use for the three levels of 'species'
+  scale_colour_manual(values=c('blue', 'red', 'forestgreen'))
+
+ggplot(allom, aes(x=diameter, y=height, col=species, shape=species)) +
+  geom_point() +
+  xlim(0, 80) + ylim(0, 50) +
+  scale_colour_manual(values=c('blue', 'red', 'forestgreen')) +
+##state the shapes to use for the three levels of 'species'
+  scale_shape_manual(values=c(0, 1, 16))
+
+ggplot(allom, aes(x=diameter, y=height, col=species, shape=species)) +
+  geom_point() +
+  xlim(0, 80) + ylim(0, 50) +
+  scale_colour_manual(values=c('blue', 'red', 'forestgreen')) +
+  scale_shape_manual(values=c(0, 1, 16)) +
+##specify axis labels
+  labs(title='Allometric relationships for three tree species',
+       x='Tree diameter at breast height (m)', y='Tree height (m)',
+       colour='Tree species')
+
+ggplot(allom, aes(x=diameter, y=height, col=species)) +
+  geom_point() +
+  xlim(0, 80) + ylim(0, 50) +
+##change the labels in the colour legend
+##note that here use named vectors here
+  scale_colour_manual(values=c(PIPO='blue', PIMO='red', PSME='forestgreen'),
+                      labels=c(PIMO='P. imo.', PSME='P. sme.', PIPO='P. ipo.')) +
+  labs(title='Allometric relationships for three tree species',
+       x='Tree diameter at breast height (m)', y='Tree height (m)',
+       colour='Tree species')
