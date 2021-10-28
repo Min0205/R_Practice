@@ -579,3 +579,5 @@ par(mar=c(5,5,2,2))
 plot(x,y)
 dev.copy2pdf(file="Figure1.pdf")
 dev.copy2eps(file="Figure1.eps")
+##export a large PNG file of the current plot
+dev.print(png, file = "myplot.png", width = 1024, height = 768)
