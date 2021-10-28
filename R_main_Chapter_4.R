@@ -554,3 +554,21 @@ ggplot(allom, aes(x=diameter, y=height, col=species)) +
   labs(title='Allometric relationships for three tree species',
        x='Tree diameter at breast height (m)', y='Tree height (m)',
        colour='Tree species')
+
+##layouts with ggplot2
+vessel <- read.csv("vessel.csv")
+##plot separate histograms (one for 'base' data, one for 'apex' data)
+ggplot(vessel, aes(x=vesseldiam)) +
+  geom_histogram()+
+##seperate two plots
+  facet_wrap(~ position)
+
+install.packages("patchwork")
+library(patchwork)
+##produce three plots and save them as objects
+p1 <- ggplot(cereal, aes(x=Manufacturer, y=rating)) + stat_summary(geom='bar', fun=mean) +
+  stat_summary(geom='errorbar', fun.data=mean_se, width=0.25)
+p2 <- ggplot(vessel, aes(x=vesseldiam, fill=position)) + geom_density(alpha=0.5)
+p3 <- ggplot(allom, aes(x=diameter, y=height)) + geom_point() + facet_wrap(~ species, ncol=3)
+##plot the panels together, two on one line and one on a second line
+(p1 + p2) / p3
