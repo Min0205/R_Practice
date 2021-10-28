@@ -572,3 +572,10 @@ p2 <- ggplot(vessel, aes(x=vesseldiam, fill=position)) + geom_density(alpha=0.5)
 p3 <- ggplot(allom, aes(x=diameter, y=height)) + geom_point() + facet_wrap(~ species, ncol=3)
 ##plot the panels together, two on one line and one on a second line
 (p1 + p2) / p3
+
+##exporting figures
+windows(4,4)
+par(mar=c(5,5,2,2))
+plot(x,y)
+dev.copy2pdf(file="Figure1.pdf")
+dev.copy2eps(file="Figure1.eps")
