@@ -557,6 +557,7 @@ ggplot(allom, aes(x=diameter, y=height, col=species)) +
 
 ##layouts with ggplot2
 vessel <- read.csv("vessel.csv")
+library(ggplot2)
 ##plot separate histograms (one for 'base' data, one for 'apex' data)
 ggplot(vessel, aes(x=vesseldiam)) +
   geom_histogram()+
@@ -581,3 +582,4 @@ dev.copy2pdf(file="Figure1.pdf")
 dev.copy2eps(file="Figure1.eps")
 ##export a large PNG file of the current plot
 dev.print(png, file = "myplot.png", width = 1024, height = 768)
+
