@@ -2,6 +2,8 @@
 ###the needed packages: rio, skimr, janitor, doBy
 ##import and browse the data
 #import
+getwd()
+setwd("D:/doc_study/mygit")
 rio::import("EucFACE_tree_health/FACE_PMULTI_RA_waterpotential_L2_20120508-20211214.csv")
 test_dat <- read.csv("EucFACE_tree_health/FACE_PMULTI_RA_waterpotential_L2_20120508-20211214.csv")
 #browse, skim shows data summary, variable type, and NAs
@@ -27,3 +29,13 @@ needed2 <- test_dat_cleaned_col %>% select(contains("c"))
 names(needed2)
 needed3 <- test_dat_cleaned_col %>% select(where(is.numeric))
 names(needed3)
+##generate new variables
+test_dat_cleaned_col %>% mutate(postive_lwp = -lwp)
+#compare and fill columns
+preferred_data <- c("a", "b", NA, NA)
+alternate_data <- c("a", "c", "a", "d")
+data <- coalesce(preferred_data, alternate_data)
+data
+test_dat_cleaned_col_cleaned_date <- test_dat_cleaned_col %>% mutate(real_date = coalesce(campaign_day, date))
+test_dat_cleaned_col_cleaned_date
+

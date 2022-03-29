@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ##Chapter 1
 ##example 1: individual-level variation in tree canopy gradients
 getwd()
