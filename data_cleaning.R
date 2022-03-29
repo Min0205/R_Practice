@@ -39,6 +39,14 @@ data <- coalesce(preferred_data, alternate_data)
 data
 test_dat_cleaned_col_cleaned_date <- test_dat_cleaned_col %>% mutate(real_date = coalesce(campaign_day, date))
 test_dat_cleaned_col_cleaned_date
-#use "case_when" to recode(change the wrong value in columns)
+#use "mutate" and  "case_when" to recode(change the wrong value in columns)
 test_dat_cleaned_col_cleaned_date %>% mutate(real_lwp = case_when(
-  time == "Predawn" ~ -lwp, time == "Midday" ~ lwp, time == "Morning" ~ -lwp, time == "Afternoon" ~ -lwp))
+  time == "Morning" ~ -lwp, time == "Midday" ~ lwp, is.na(time) ~ lwp, TRUE ~ NA_real_))
+#replace NAs
+#??there are null cells in 'comment', but are not identified as NAs.
+test_dat_cleaned_col_cleaned_date$date[test_dat_cleaned_col_cleaned_date$date == as.Date("2012-05-08")] <- NA
+test_dat_cleaned_col_cleaned_date
+change1 <- test_dat_cleaned_col_cleaned_date %>% mutate(date = fct_explicit_na(date, "Missing"))
+change2 <- test_dat_cleaned_col_cleaned_date %>% mutate(date = replace_na(date, "None"))
+change3 <- test_dat_cleaned_col_cleaned_date %>% mutate(comment = replace_na(comment, "None"))
+
