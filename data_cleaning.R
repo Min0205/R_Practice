@@ -44,8 +44,10 @@ test_dat_cleaned_col_cleaned_date %>% mutate(real_lwp = case_when(
   time == "Morning" ~ -lwp, time == "Midday" ~ lwp, is.na(time) ~ lwp, TRUE ~ NA_real_))
 #replace NAs
 #??there are null cells in 'comment', but are not identified as NAs.
+#(solved) these cells are not null, they are ''.
 test_dat_cleaned_col_cleaned_date$date[test_dat_cleaned_col_cleaned_date$date == as.Date("2012-05-08")] <- NA
-test_dat_cleaned_col_cleaned_date
+test_dat_cleaned_col_cleaned_date$Comment[test_dat$Comment == ''] <- 'Missing'
+test_dat_cleaned_col_cleaned_date$Comment[is.na(test_dat$Comment)] <- 'Missing'
 change1 <- test_dat_cleaned_col_cleaned_date %>% mutate(date = fct_explicit_na(date, "Missing"))
 change2 <- test_dat_cleaned_col_cleaned_date %>% mutate(date = replace_na(date, "None"))
 change3 <- test_dat_cleaned_col_cleaned_date %>% mutate(comment = replace_na(comment, "None"))
