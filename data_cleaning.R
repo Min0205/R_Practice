@@ -29,7 +29,8 @@ needed2 <- test_dat_cleaned_col %>% select(contains("c"))
 names(needed2)
 needed3 <- test_dat_cleaned_col %>% select(where(is.numeric))
 names(needed3)
-##generate new variables
+##clean data
+#generate new variables
 test_dat_cleaned_col %>% mutate(postive_lwp = -lwp)
 #compare and fill columns
 preferred_data <- c("a", "b", NA, NA)
@@ -38,4 +39,6 @@ data <- coalesce(preferred_data, alternate_data)
 data
 test_dat_cleaned_col_cleaned_date <- test_dat_cleaned_col %>% mutate(real_date = coalesce(campaign_day, date))
 test_dat_cleaned_col_cleaned_date
-
+#use "case_when" to recode(change the wrong value in columns)
+test_dat_cleaned_col_cleaned_date %>% mutate(real_lwp = case_when(
+  time == "Predawn" ~ -lwp, time == "Midday" ~ lwp, time == "Morning" ~ -lwp, time == "Afternoon" ~ -lwp))
