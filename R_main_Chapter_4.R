@@ -3,7 +3,7 @@
 # Option 1: plot of X and Y
 with(dfr, plot(X,Y))
 # Option 2: formula interface (Y 'as a function of' X)
-plot(Y ~ X, data=dfr)
+plot(Y ~ X, data=dfr) 
 ##bar plot
 ##a simple bar plot
 nums <- c(2.1,3.4,3.8,3.9,2.9,5)
