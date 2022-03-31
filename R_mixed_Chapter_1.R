@@ -35,7 +35,6 @@ visreg(m1, "dfromtop", by="species", overlay=TRUE)
 plot(m1)
 #quantile-quantile p
 qqPlot(resid(m1))
-=======
 ##Chapter 1
 ##example 1: individual-level variation in tree canopy gradients
 getwd()
@@ -71,6 +70,9 @@ visreg(m1, "dfromtop", by="species", overlay=TRUE)
 #make diagnostic plots
 #residuals against fitted values
 plot(m1)
-#quantile-quantile p
+#quantile-quantile plot
 qqPlot(resid(m1))
->>>>>>> b17979bcedd580a4844ca015567b60faf1140a28
+#plot the predicted trend
+library(ggeffects)
+ggpredict(m1, terms = c('dfromtop', 'species'))
+plot(ggpredict(m1, terms = c('dfromtop', 'species')), add.data = TRUE)
