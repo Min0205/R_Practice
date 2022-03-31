@@ -76,3 +76,4 @@ qqPlot(resid(m1))
 library(ggeffects)
 ggpredict(m1, terms = c('dfromtop', 'species'))
 plot(ggpredict(m1, terms = c('dfromtop', 'species')), add.data = TRUE)
+#test
